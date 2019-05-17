@@ -1,0 +1,27 @@
+---
+title: "CMSC320 Final Project"
+output: html_document
+authors: 
+---
+
+```{r setupdb, include=TRUE,  max.print = -1, comment = FALSE, warning=FALSE, include = FALSE }
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(broom)
+library(caret)
+library(plotROC)
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+
+```
+
+```{r prep, comment=FALSE}
+csv<- "/Users/Maya/Downloads/Admission_Predict_Data.csv"
+read_csv(csv)
+
+```
+
