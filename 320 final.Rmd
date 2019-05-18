@@ -36,7 +36,7 @@ Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Mode
 ^ on kaggle page
 
 We can view the data by calling the read_csv command on the downloaded file.
-```{r prep, comment=FALSE, warning=FALSE, message=FALSE}
+```{r prep, message=FALSE}
 
 csv<- "/Users/Maya/Downloads/Admission_Predict_Data.csv"
 df <- read_csv(csv)
@@ -132,6 +132,38 @@ gre_fit %>%
 ```
 We find that our p value for $ \hat\beta{_1} \\$ is much lower than .05, our cutoff for significance. Thus we can state that there is a statistically significant relationship between GRE Score and Chance of Admittance.
 
-## Multiple Regression
+## Interaction
 We know that GRE is a factor for admittance, but what if there are more? In particular, what if a combination of multiple factors gives us a better model for the data?
 
+Another variable we can consider is whether an applicant has done research or not. 
+This would require models of conditional expectation, stiill represented as a linear function.
+$Chance of Admit \approx \beta{_0} + \beta{_1}\times GRE Score + \beta{_2}\times Research + \beta{_3}\times (GRE Score \times Research)\\$
+
+Like in simple regression, we can build our model using geom_smooth
+
+```{r interaction}
+tidy_data %>%
+  ggplot(aes(x=`GRE Score`, y=`Chance of Admit`, color=Research)) +
+    geom_point() +
+    geom_smooth(method=lm)
+
+```
+The two lines are similar, but the slope of Research==TRUE appears to be greater.
+
+Now that we have the model, we can see how it fits.
+```{r multiple}
+multiple_fit <- lm(`Chance of Admit`~`GRE Score`*Research, data=tidy_data)
+multiple_fit_stats <- multiple_fit %>%
+  tidy()
+multiple_fit_stats %>% knitr::kable()
+```
+We can see that for Research==TRUE and FALSE, the relationships between GRE Score and Chance of Admit are not significantly different. This is because while the estimates for GREScore and GREScore:ResearchTRUE are different, the pvalue of 0.0086 is great enough that they may be equal. 
+
+###ANOVA
+An Analysis of Variance Test allows us to compare models and see which one is a better fit for the data.
+```{r e7, warning=FALSE}
+anova(gre_fit, multiple_fit)
+
+```
+
+The pvalue calculated is 5.894e-06, which is incredibly small. Thus we can state that the second model with the GRE Score and Research interaction is a better fit for the data than the model with just GRE Score.
