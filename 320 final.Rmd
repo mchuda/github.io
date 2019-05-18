@@ -1,11 +1,19 @@
 ---
 title: "CMSC320 Final Project"
-output: html_document
+output: html_document:
+  number_sections: true
+        toc: true
+
 authors: 
 ---
 
-```{r setupdb, include=TRUE,  max.print = -1, comment = FALSE, warning=FALSE, include = FALSE }
 
+## Background
+Graduate School is a goal for many students in University. However, unlike in high school, the resources and information are not as known, so prospective young adults have to independently do their research. There are many factors in the application process, and the purpose of this project is to help gain a better understanding on what is needed for a successful higher education.
+
+## Setting up
+Prior to accessing our dataset, we need to first load the packages necessary for this study.
+```{r setupdb, include=TRUE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
@@ -16,12 +24,68 @@ library(magrittr)
 library(dplyr)
 library(ggplot2)
 library(ggrepel)
-
 ```
 
+
+# Data Curation
+
+The dataset we will be using comes from a comma-separated values (CSV) file, found on https://www.kaggle.com/mohansacharya/graduate-admissions/downloads/graduate-admissions.zip/2
+(need to cite properly). 
+Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Models for Prediction of Graduate Admissions, IEEE International Conference on Computational Intelligence in Data Science 2019
+^ on kaggle page
+
+We can view the data by calling the read_csv command on the downloaded file.
 ```{r prep, comment=FALSE}
+
 csv<- "/Users/Maya/Downloads/Admission_Predict_Data.csv"
-read_csv(csv)
+df <- read_csv(csv)
+df
 
 ```
+
+# Parsing and Management
+Now that we have the data, we should understand what the components are.
+## Entries
+The entries for this dataframe are individuals who have applied to graduate school. Each entry, or row, corresponds to one person. 
+## Attributes
+The attributes (or columns) in the dataset are as follows: Serial No., GRE Score, TOEFL Score, University Rating, SOP, LOR, GPA, Research, and Chance of Admit
+### Serial Number
+The serial number of each entry merely identifies the row the entry is in. As a result, it does not need to be kept in the dataframe.
+```{r remsno}
+# remove first column containing Serial Number
+tidy_data <- df[,-1]
+tidy_data
+```
+### GRE Score
+The GRE is the Graduate Record Examination, and serves as an admission test for graduate school. The exam is a broad assessment of one's critical thinking, analytica writing, verbal reasoning, and quantitative reasoning skills. The exam is scored from 130-170 in each of the two sections, Verbal and Quantitative, making the maximum possible score 340.
+### TOEFL Score
+The TOEFL is the test of English as a foreign language, taken by many international students. The test is scored on a scale of 0 to 120 and is made up of four sections: Reading, Listening, Speaking, and Writing. 
+### University Rating
+This is a rating out of 5 of the applicant's undergraduate university.
+### Statement of Purpose (SOP)
+The SOP is an essay written in the application, scored in this case from 1-5 in terms of strength.
+### Letters of Recommendation (LOR)
+The LOR are written by professors and mentors, and are scored in the dataset from 1-5 in terms of strength
+### Cumulative GPA
+The cumulative undergraduate GPA of the applicant is out of 10.0
+### Research
+The research attribute identifies whether or not an applicant conducted research prior to applying, with 1 for yes and 0 for no.
+Since this is binary, we can turn the values into booleans, with true = 1 and false = 0
+```{r research}
+#convert 1's and 0's in Research to boolean values
+tidy_data$Research <- as.logical(as.integer(tidy_data$Research))
+tidy_data
+
+```
+### Chance of Admit
+The chance of admittance into an American Graduate Program is scored from 0 to 1.
+
+# Exploratory Data Analysis
+
+# Hypothesis Testing
+
+# Machine Learning
+
+
+
 
