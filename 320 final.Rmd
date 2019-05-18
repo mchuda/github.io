@@ -8,6 +8,7 @@ output:
 
 ---
 
+# Background and Setting Up
 
 ## Background
 Graduate School is a goal for many students in University. However, unlike in high school, the resources and information are not as known, so prospective young adults have to independently do their research. There are many factors in the application process, and the purpose of this project is to help gain a better understanding on what is needed for a successful higher education.
@@ -46,6 +47,15 @@ df
 
 # Parsing and Management
 Now that we have the data, we should understand what the components are.
+
+## Missing Values
+First things first, we need to check and make sure there are no missing values in the dataset.
+We can use the apply function, which takes a variable, margin, and function. The variable in this case would be the function is.na applied on the dataset, df. This creates a matrix filled with boolean values for each value in the dataset, whether it is marked "NA" or not. We use a margin of 2 so the function is applied by column, and the function sum adds up the number of NA values in each column.
+```{r missing}
+apply(is.na(df),2, sum)
+
+```
+We find that our dataset has no missing values and can proceed.
 
 ## Entries
 The entries for this dataframe are individuals who have applied to graduate school. Each entry, or row, corresponds to one person. 
@@ -93,9 +103,23 @@ tidy_data
 ### Chance of Admit
 The chance of admittance into an American Graduate Program is scored from 0 to 1.
 
+
+
 # Exploratory Data Analysis
 
+Exploratory Data Analysis (EDA) serves as an initial investigation of attributes across entities. Some of the varaible properties we would like to understand are:
+* central trends
+* spread
+* skew
+* outliers
+We can also look at relationships between variables, which will serve useful later when creating models.
+
+
+
+
 # Hypothesis Testing
+
+
 
 
 # Machine Learning
@@ -134,8 +158,12 @@ We find that our p value for $ \hat\beta{_1} \\$ is much lower than .05, our cut
 
 ## Interaction
 We know that GRE is a factor for admittance, but what if there are more? In particular, what if a combination of multiple factors gives us a better model for the data?
+Interaction models allow us to see if the effect of one predictor on the outcome is increased by another predictor.
 
-Another variable we can consider is whether an applicant has done research or not. 
+Graduate schools provide students with more advanced learning in a specialized field. Much of this comes from doing hands on research in their respective programs. 
+While it is not mandatory to conduct research during undergraduate studies, there is a notion that doing so will greatly help your chances of getting into a good school. 
+
+Therefore, another variable we can consider is whether an applicant has done research or not. 
 This would require models of conditional expectation, stiill represented as a linear function.
 $Chance of Admit \approx \beta{_0} + \beta{_1}\times GRE Score + \beta{_2}\times Research + \beta{_3}\times (GRE Score \times Research)\\$
 
@@ -158,10 +186,13 @@ multiple_fit_stats <- multiple_fit %>%
 multiple_fit_stats %>% knitr::kable()
 ```
 We can see that for Research==TRUE and FALSE, the relationships between GRE Score and Chance of Admit are not significantly different. This is because while the estimates for GREScore and GREScore:ResearchTRUE are different, the pvalue of 0.0086 is great enough that they may be equal. 
+Normally, we do not require a pvalue to be below 0.05, but the estimates for the effect of Research on GRE Score are only 0.0057 off. As a result, we need our pvalue to be lower than the difference so that we can make sure the confidence interval does not overlap.
 
-###ANOVA
+## ANOVA
+
 An Analysis of Variance Test allows us to compare models and see which one is a better fit for the data.
-```{r e7, warning=FALSE}
+
+```{r anova, warning=FALSE}
 anova(gre_fit, multiple_fit)
 
 ```
