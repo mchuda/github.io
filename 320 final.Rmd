@@ -55,6 +55,7 @@ We can use the apply function, which takes a variable, margin, and function. The
 apply(is.na(df),2, sum)
 
 ```
+
 We find that our dataset has no missing values and can proceed.
 
 ## Entries
@@ -114,7 +115,44 @@ Exploratory Data Analysis (EDA) serves as an initial investigation of attributes
 * outliers
 We can also look at relationships between variables, which will serve useful later when creating models.
 
+## Visualization
 
+We can get a general idea of an applicant's chance of acceptance in the dataset. By arranging all of the rows in order of Chance of Admit before plotting, we are able to see a general trend, which we can delve deeper into.
+```{r simple_vis}
+tidy_data %>%
+  arrange(`Chance of Admit`) %>%
+  rowid_to_column() %>%
+  ggplot(aes(x=rowid, y=`Chance of Admit`)) +
+  geom_point()
+```
+
+Based on the plot, we see a somewhat linear increase in chance, with a curve at the beginning. 
+
+To know if the distribution is even, we can look at a box plot.
+```{r boxplot}
+tidy_data %>%
+  ggplot(aes(x='', y=`Chance of Admit`)) +
+  geom_boxplot()
+
+```
+
+This boxplot gives us a visualization of the central tendency (the line in the box), the spread (the box and whiskets) and outliers (the dots outside of the whiskers). 
+We see the median chance of acceptance is around .7 for applicants in our dataset and the interquartile range appears to be pretty even on both sides. We can confirm these obervations with statistics.
+
+We can also visualize pairs of variables. 
+The GRE is used by thousands of graduate schools around the world, and serves as a standardized test for evaluating all applicants. However, we know that the test score is not the only thing that matters in terms of being accepted, and occasionally, poorer scoring students will still get into a school. 
+To look at continuous variables GRE Score and Chance of Admit, we can produce a scatter plot. 
+```{r scatter}
+tidy_data %>%
+  ggplot(aes(x=`GRE Score`, y=`Chance of Admit`)) +
+  geom_point()
+
+```
+From the scatter plot, we can see a pattern of Chance of Admit increasing with GRE Score. With a model, we will be better able to quantify the potential relationship.
+
+## Summary Statistics
+
+## Data Transformations
 
 
 # Hypothesis Testing
@@ -142,6 +180,7 @@ simple_reg
 # The linear model equation
 gre_fit <- lm(`Chance of Admit`~`GRE Score`, data=tidy_data)
 ```
+
 According to the lm function, $\hat\beta{_0} = -2.48281\\$ and $\hat\beta{_1} = 0.01013\\$ 
 This means that on average, an applicant's chance of admittance would increase by 0.01 for every additional point scored on the GRE.
 
@@ -154,6 +193,7 @@ $\ H{_0}; \beta{_1} \neq 0\\$
 gre_fit %>%
   tidy()
 ```
+
 We find that our p value for $ \hat\beta{_1} \\$ is much lower than .05, our cutoff for significance. Thus we can state that there is a statistically significant relationship between GRE Score and Chance of Admittance.
 
 ## Interaction
@@ -176,6 +216,7 @@ tidy_data %>%
     geom_smooth(method=lm)
 
 ```
+
 The two lines are similar, but the slope of Research==TRUE appears to be greater.
 
 Now that we have the model, we can see how it fits.
@@ -185,6 +226,7 @@ multiple_fit_stats <- multiple_fit %>%
   tidy()
 multiple_fit_stats %>% knitr::kable()
 ```
+
 We can see that for Research==TRUE and FALSE, the relationships between GRE Score and Chance of Admit are not significantly different. This is because while the estimates for GREScore and GREScore:ResearchTRUE are different, the pvalue of 0.0086 is great enough that they may be equal. 
 Normally, we do not require a pvalue to be below 0.05, but the estimates for the effect of Research on GRE Score are only 0.0057 off. As a result, we need our pvalue to be lower than the difference so that we can make sure the confidence interval does not overlap.
 
