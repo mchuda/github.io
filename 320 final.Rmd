@@ -1,10 +1,11 @@
 ---
 title: "CMSC320 Final Project"
-output: html_document:
-  number_sections: true
-        toc: true
+output: 
+  html_document:
+    number_sections: true
+    toc: true
 
-authors: 
+
 ---
 
 
@@ -13,7 +14,7 @@ Graduate School is a goal for many students in University. However, unlike in hi
 
 ## Setting up
 Prior to accessing our dataset, we need to first load the packages necessary for this study.
-```{r setupdb, include=TRUE}
+```{r setupdb, include=TRUE, comment=FALSE, warning=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
@@ -35,7 +36,7 @@ Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Mode
 ^ on kaggle page
 
 We can view the data by calling the read_csv command on the downloaded file.
-```{r prep, comment=FALSE}
+```{r prep, comment=FALSE, warning=FALSE, message=FALSE}
 
 csv<- "/Users/Maya/Downloads/Admission_Predict_Data.csv"
 df <- read_csv(csv)
@@ -45,10 +46,13 @@ df
 
 # Parsing and Management
 Now that we have the data, we should understand what the components are.
+
 ## Entries
 The entries for this dataframe are individuals who have applied to graduate school. Each entry, or row, corresponds to one person. 
+
 ## Attributes
 The attributes (or columns) in the dataset are as follows: Serial No., GRE Score, TOEFL Score, University Rating, SOP, LOR, GPA, Research, and Chance of Admit
+
 ### Serial Number
 The serial number of each entry merely identifies the row the entry is in. As a result, it does not need to be kept in the dataframe.
 ```{r remsno}
@@ -56,27 +60,36 @@ The serial number of each entry merely identifies the row the entry is in. As a 
 tidy_data <- df[,-1]
 tidy_data
 ```
+
 ### GRE Score
 The GRE is the Graduate Record Examination, and serves as an admission test for graduate school. The exam is a broad assessment of one's critical thinking, analytica writing, verbal reasoning, and quantitative reasoning skills. The exam is scored from 130-170 in each of the two sections, Verbal and Quantitative, making the maximum possible score 340.
+
 ### TOEFL Score
 The TOEFL is the test of English as a foreign language, taken by many international students. The test is scored on a scale of 0 to 120 and is made up of four sections: Reading, Listening, Speaking, and Writing. 
+
 ### University Rating
 This is a rating out of 5 of the applicant's undergraduate university.
+
 ### Statement of Purpose (SOP)
 The SOP is an essay written in the application, scored in this case from 1-5 in terms of strength.
+
 ### Letters of Recommendation (LOR)
 The LOR are written by professors and mentors, and are scored in the dataset from 1-5 in terms of strength
+
 ### Cumulative GPA
 The cumulative undergraduate GPA of the applicant is out of 10.0
+
 ### Research
 The research attribute identifies whether or not an applicant conducted research prior to applying, with 1 for yes and 0 for no.
 Since this is binary, we can turn the values into booleans, with true = 1 and false = 0
+
 ```{r research}
 #convert 1's and 0's in Research to boolean values
 tidy_data$Research <- as.logical(as.integer(tidy_data$Research))
 tidy_data
 
 ```
+
 ### Chance of Admit
 The chance of admittance into an American Graduate Program is scored from 0 to 1.
 
@@ -84,8 +97,41 @@ The chance of admittance into an American Graduate Program is scored from 0 to 1
 
 # Hypothesis Testing
 
+
 # Machine Learning
+As students, we want to see what can maximize our chances of getting into a Graduate Program. Given that there are multiple factors in the dataset that may improve chances, we can conduct a linear regression to see if there is a relationship between any of the attributes.
 
+## Simple Regression
+To look at the relationship between two continuous variables, we can assume that in our population, the relationship between them is given by the linear function
+$Y = \beta{_0} + \beta{_1}X \\$
 
+Since we are interested in how chance of being admitted is affected by factors (ex: GRE score), we can do the following regression: 
+$Chance of Admit \approx \beta{_0} + \beta{_1}\times GRE Score \\$
 
+```{r simple}
+simple_reg <- tidy_data %>%
+  ggplot(aes(x=`GRE Score`, y= `Chance of Admit`)) +
+  geom_point() +
+  geom_smooth(method=lm)
+simple_reg
+
+# The linear model equation
+gre_fit <- lm(`Chance of Admit`~`GRE Score`, data=tidy_data)
+```
+According to the lm function, $\hat\beta{_0} = -2.48281\\$ and $\hat\beta{_1} = 0.01013\\$ 
+This means that on average, an applicant's chance of admittance would increase by 0.01 for every additional point scored on the GRE.
+
+Now that we have a linear model, we must interpret how well it fits the data.
+First, we need to check that there is a relationship between Chance of Admit and GRE Score. This can be done with a hypothesis test. 
+$\ H{_0}; \beta{_1} = 0\\$ meaning there is no relationship
+$\ H{_0}; \beta{_1} \neq 0\\$
+
+```{r htest}
+gre_fit %>%
+  tidy()
+```
+We find that our p value for $ \hat\beta{_1} \\$ is much lower than .05, our cutoff for significance. Thus we can state that there is a statistically significant relationship between GRE Score and Chance of Admittance.
+
+## Multiple Regression
+We know that GRE is a factor for admittance, but what if there are more? In particular, what if a combination of multiple factors gives us a better model for the data?
 
