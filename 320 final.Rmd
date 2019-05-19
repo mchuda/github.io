@@ -186,8 +186,15 @@ summary %>%
 
 ```
 # Hypothesis Testing
+Since I have mad multiple statements regarding the relationship of GRE Score and the probability of being accepted into a University, I decided to test a different relationship. I did Chance of Admit vs University Rating in order to see if there was a relationship between the rating of the university you attended and the Chance that was calculated of admission. As you can see, the p-value for this relationship is significantly low at 6.53 * 10 ^-63 which is less than .05, allowing us to reject the null hypothesis.
 
+```{r hypo}
 
+library(tidyverse)
+hypo <- tidy_data %>% lm(formula=`University Rating`~`Chance of Admit`)
+broom::tidy(hypo)
+
+```
 
 # Machine Learning
 As students, we want to see what can maximize our chances of getting into a Graduate Program. Given that there are multiple factors in the dataset that may improve chances, we can conduct a linear regression to see if there is a relationship between any of the attributes.
