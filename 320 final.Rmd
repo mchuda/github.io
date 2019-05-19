@@ -58,10 +58,14 @@ apply(is.na(df),2, sum)
 
 We find that our dataset has no missing values and can proceed.
 
+There are certain datasets that do have missing values, and they need to be taken care of. Some options include eliminating entries with missing values and imputing values into missing places. Check out http://uc-r.github.io/missing_values for details on how to do so. 
+
 ## Entries
 The entries for this dataframe are individuals who have applied to graduate school. Each entry, or row, corresponds to one person. 
 
 ## Attributes
+There are several types of attributes in R, as each column is made up of values of a particular class. Some of the common data types can be found at https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/
+
 The attributes (or columns) in the dataset are as follows: Serial No., GRE Score, TOEFL Score, University Rating, SOP, LOR, GPA, Research, and Chance of Admit
 
 ### Serial Number
@@ -205,6 +209,8 @@ $Y = \beta{_0} + \beta{_1}X \\$
 
 Since we are interested in how chance of being admitted is affected by factors (ex: GRE score), we can do the following regression: 
 $Chance of Admit \approx \beta{_0} + \beta{_1}\times GRE Score \\$
+
+In the above graphs used in EDA Visualization, we used components for adding geom_points and geom_boxplots. However, multiple components can be added to a single plot. For example, a geom_smooth component can be layered, Additional information can be found at https://ggplot2.tidyverse.org/reference/gg-add.html (cite)
 
 ```{r simple}
 simple_reg <- tidy_data %>%
