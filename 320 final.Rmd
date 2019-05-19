@@ -11,7 +11,7 @@ output:
 # Background and Setting Up
 
 ## Background
-Graduate School is a goal for many students in University. However, unlike in high school, the resources and information are not as known, so prospective young adults have to independently do their research. There are many factors in the application process, and the purpose of this project is to help gain a better understanding on what is needed for a successful higher education.
+Graduate School is a goal for many students in University. However, unlike in high school, the resources and information are not as widespread, so prospective young adults have to independently do research to be informed. There are many factors in the application process, and the purpose of this project is to help gain a better understanding on what is needed for a successful higher education.
 
 ## Setting up
 Prior to accessing our dataset, we need to first load the packages necessary for this study.
@@ -39,7 +39,7 @@ Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Mode
 We can view the data by calling the read_csv command on the downloaded file.
 ```{r prep, message=FALSE}
 
-csv<- "/Users/Maya/Downloads/Admission_Predict_Data.csv"
+csv <- "/Users/sahanaraju/Downloads/graduate-admissions/Admission_Predict.csv"
 df <- read_csv(csv)
 df
 
@@ -96,6 +96,7 @@ Since this is binary, we can turn the values into booleans, with true = 1 and fa
 
 ```{r research}
 #convert 1's and 0's in Research to boolean values
+
 tidy_data$Research <- as.logical(as.integer(tidy_data$Research))
 tidy_data
 
@@ -103,7 +104,6 @@ tidy_data
 
 ### Chance of Admit
 The chance of admittance into an American Graduate Program is scored from 0 to 1.
-
 
 
 # Exploratory Data Analysis
@@ -143,6 +143,7 @@ We can also visualize pairs of variables.
 The GRE is used by thousands of graduate schools around the world, and serves as a standardized test for evaluating all applicants. However, we know that the test score is not the only thing that matters in terms of being accepted, and occasionally, poorer scoring students will still get into a school. 
 To look at continuous variables GRE Score and Chance of Admit, we can produce a scatter plot. 
 ```{r scatter}
+
 tidy_data %>%
   ggplot(aes(x=`GRE Score`, y=`Chance of Admit`)) +
   geom_point()
@@ -152,11 +153,39 @@ From the scatter plot, we can see a pattern of Chance of Admit increasing with G
 
 ## Summary Statistics
 
+The summary statistics groups the data by GRE scores and then calculates the mean of admit. So the GRE_Scores_Interval groups the GRE Scores in groups of 5 from 290-340. Then, it calculates the mean of the chance of admit for each interval. As you can tell, the GRE Scores increase, the mean chance of admit increases as well. As you can tell the Mean chance of Admit range increases from .52 to .94 as the intervals increase.
+```{r summary}
+
+summary <- tidy_data %>%
+           mutate("GRE_Scores_Interval" = cut(`GRE Score` ,breaks = 10)) %>% 
+           group_by(GRE_Scores_Interval) %>%
+           summarize("Mean Chance of Admit"=mean(`Chance of Admit`))
+
+summary
+```
+
 ## Data Transformations
+Our data transformation consists of centering the data for the previous summary statistics that we performed on GRE vs Mean Chance of Admit. We will then break up the data by the standard deviation instead of by intervals of 5. As you can tell the standard deviations are from -3 to 3 since this was the range of the SD of the data. This then allows us to see the change in the average of the data as the standard deivation away from the mean changes.
+```{r summary}
 
 
+sd <- tidy_data %>% 
+  summarize("Standard_Deviation"= sd(`GRE Score`),"Mean"=mean(`GRE Score`)) 
+sd
+
+summary <- tidy_data %>%
+           mutate(z = (`GRE Score` - sd$Mean) / sd$Standard_Deviation)
+summary 
+
+summary %>%
+           mutate("GRE Centered Score" = cut(z , seq(from= -3, to= 3, by= 1.0))) %>%
+           group_by(`GRE Centered Score`) %>%
+           summarise("Mean" = mean(`Chance of Admit`))
+
+
+
+```
 # Hypothesis Testing
-
 
 
 
