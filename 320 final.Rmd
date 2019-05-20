@@ -170,7 +170,7 @@ dl_tab <- url %>%
   df_gtech  <- separate(df_gtech ,University,c("rank","College"), sep = "[.]")
   
   #Scraping Data for UCLA
-  temp <- c(df[226,],df[228,]) 
+  temp <- c("19. University of California Los Angeles",df[228,]) 
   names(temp) <- c("University", "Location")
   df_ucla  <- as_data_frame(temp)
   df_ucla <- separate(df_ucla ,University,c("rank","College"), sep = "[.]")
@@ -183,7 +183,12 @@ dl_tab <- url %>%
   
  df_final <- bind_rows(df_stan,df_mit,df_pr,df_berk,df_cmu,df_corn,df_usc,df_uta,df_harv,df_calt,df_uchic,df_umd,df_ucsd,df_uma,df_purd,df_columb,df_fou,
                         df_gtech,df_ucla,df_yale)
-  df_final
+
+ df_final <- df_final %>%
+   mutate(lat = geocode_OSM(College, as.data.frame = TRUE)[[2]],lng = geocode_OSM(College, as.data.frame = TRUE)[[3]] )
+ 
+ df_final
+
 
 
   #as_data_frame(dl_tab)
