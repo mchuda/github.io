@@ -86,7 +86,7 @@ dl_tab <- url %>%
   df_pr  <- separate(df_pr ,University,c("rank","College"), sep = "[.]")
  
   #Scraping Data for CMU
-  temp <- c(df[51,],df[54,]) 
+  temp <- c("5. Carnegie Mellon (Pittsburgh)",df[54,]) 
   names(temp) <- c("University", "Location")
   df_cmu  <- as_data_frame(temp)
   df_cmu  <- separate(df_cmu ,University,c("rank","College"), sep = "[.]")
@@ -99,7 +99,7 @@ dl_tab <- url %>%
   df_corn  <- separate(df_corn ,University,c("rank","College"), sep = "[.]")
 
   
-   #Scraping Data for Cornell
+   #Scraping Data for USC
   temp <- c(df[73,],df[76,]) 
   names(temp) <- c("University", "Location")
   df_usc  <- as_data_frame(temp)
@@ -195,6 +195,28 @@ dl_tab <- url %>%
 
 
   #as_data_frame(dl_tab)
+
+
+```
+
+
+# Map of the Previous Data Frame
+```{r prep, message=FALSE}
+library(leaflet)
+library(stringr)
+library(pracma)
+library(dplyr)
+
+schoolIcons <- icons(
+  iconUrl = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/school_1f3eb.png",
+  iconWidth = 22, iconHeight = 22
+) 
+grad_map <- leaflet(df_final) %>%
+  addTiles() %>%
+  setView(lat=37.9, lng=-96, zoom=4) %>%
+  addMarkers(~lng,~lat,label=~College,icon = schoolIcons, clusterOptions = markerClusterOptions(), popup=paste("College:", df_final$College, "<br>",
+                                                                                            "Location:",df_final$Location))
+grad_map
 
 
 ```
