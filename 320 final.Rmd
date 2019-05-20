@@ -48,38 +48,143 @@ dl_tab <- url %>%
 
   dl_tab <- dl_tab[[1]][373:622]
 
+  #dl_tab
   df <- dplyr::as_data_frame(dl_tab)
   
+  df
+  
   #Scraping all of the data and putting them into separate schools
-  df_stan <- df[1:10,]
-  df_mit <- df[11:24,]
-  df_berk <- df[25:36,]
-  df_pr <- df[37:50,]
-  df_cmu <- df[51:62,]
-  df_corn <- df[63:72,]
-  df_usc <- df[73:85,]
-  df_uta <- df[86:97,]
-  df_harv <- df[98:109,]
-  df_calt <- df[110:122,]
-  df_uchic <- df[123:136,]
-  df_umd <- df[136:148,]
-  df_ucsd <- df[149:160,]
+  
+  #Scraping Data for Stanford
+  temp <- c(df[1,],df[3,])
+  names(temp) <- c("University", "Location")
+  df_stan <- as_data_frame(temp)
+  df_stan <- separate(df_stan,University,c("rank","College"), sep = "[.]")
+  
+  df_final <- df_stan
+
+  #Scraping Data for MIT
+  temp <- c(df[11,],df[13,]) 
+  names(temp) <- c("University", "Location")
+  df_mit <- as_data_frame(temp)
+  df_mit <- separate(df_mit,University,c("rank","College"), sep = "[.]")
+  df_final <- bind_rows(df_final)
+  
+  #Scraping Data for Berkley
+  temp <- c(df[25,],df[27,]) 
+  names(temp) <- c("University", "Location")
+  df_berk  <- as_data_frame(temp)
+  df_berk  <- separate(df_berk ,University,c("rank","College"), sep = "[.]")
+
+  #Scraping Data for Purdue
+  temp <- c(df[37,],df[39,]) 
+  names(temp) <- c("University", "Location")
+  df_pr  <- as_data_frame(temp)
+  df_pr  <- separate(df_pr ,University,c("rank","College"), sep = "[.]")
+ 
+  #Scraping Data for CMU
+  temp <- c(df[51,],df[54,]) 
+  names(temp) <- c("University", "Location")
+  df_cmu  <- as_data_frame(temp)
+  df_cmu  <- separate(df_cmu ,University,c("rank","College"), sep = "[.]")
+  
+  
+  #Scraping Data for Cornell
+  temp <- c(df[63,],df[65,]) 
+  names(temp) <- c("University", "Location")
+  df_corn  <- as_data_frame(temp)
+  df_corn  <- separate(df_corn ,University,c("rank","College"), sep = "[.]")
+
+  
+   #Scraping Data for Cornell
+  temp <- c(df[73,],df[76,]) 
+  names(temp) <- c("University", "Location")
+  df_usc  <- as_data_frame(temp)
+  df_usc  <- separate(df_usc ,University,c("rank","College"), sep = "[.]")
+  
+  #Scraping Data for UTA
+  temp <- c(df[86,],df[88,]) 
+  names(temp) <- c("University", "Location")
+  df_uta  <- as_data_frame(temp)
+  df_uta  <- separate(df_uta ,University,c("rank","College"), sep = "[.]")
+  
+  #Scraping Data for Harvard
+  temp <- c(df[98,],df[100,]) 
+  names(temp) <- c("University", "Location")
+  df_harv  <- as_data_frame(temp)
+  df_harv <- separate(df_harv ,University,c("rank","College"), sep = "[.]")
+
+  #Scraping Data for CalTech
+  temp <- c(df[110,],df[112,]) 
+  names(temp) <- c("University", "Location")
+  df_calt  <- as_data_frame(temp)
+  df_calt <- separate(df_calt ,University,c("rank","College"), sep = "[.]")
+
+ #Scraping Data for University of Chicago
+  temp <- c(df[123,],df[125,]) 
+  names(temp) <- c("University", "Location")
+  df_uchic  <- as_data_frame(temp)
+  df_uchic <- separate(df_uchic,University,c("rank","College"), sep = "[.]")
+
+  #Scraping Data for UMD
+  temp <- c(df[137,],df[139,]) 
+  names(temp) <- c("University", "Location")
+  df_umd   <- as_data_frame(temp)
+  df_umd  <- separate(df_umd ,University,c("rank","College"), sep = "[.]")
+  
+  #Scraping Data for Unviersity of Carolina SD
+  temp <- c(df[149,],df[151,]) 
+  names(temp) <- c("University", "Location")
+  df_ucsd   <- as_data_frame(temp)
+  df_ucsd  <- separate(df_ucsd ,University,c("rank","College"), sep = "[.]")
+  
   df_uma <- df[160:172,]
-  df_purd <- df[173:185,]
-  df_columb <- df[186:199,]
-  df_fou <- df[200:213,]
-  df_gtech <- df[214:225,]
-  df_ucla <- df[226:237,]
-  df_yale <- df[238:250,]
+  #Scraping Data for University of Michigan Ann Arbor
+  temp <- c(df[161,],df[163,]) 
+  names(temp) <- c("University", "Location")
+  df_uma   <- as_data_frame(temp)
+  df_uma  <- separate(df_uma ,University,c("rank","College"), sep = "[.]")
+  
+  #Scraping Data for Purdue
+  temp <- c(df[173,],df[176,]) 
+  names(temp) <- c("University", "Location")
+  df_purd   <- as_data_frame(temp)
+  df_purd  <- separate(df_purd ,University,c("rank","College"), sep = "[.]")
 
-  
-  
-  
-  df_fin <- data.frame
+  #Scraping Data for U Columbia
+  temp <- c(df[186,],df[188,]) 
+  names(temp) <- c("University", "Location")
+  df_columb   <- as_data_frame(temp)
+  df_columb  <- separate(df_columb ,University,c("rank","College"), sep = "[.]")
 
+  #Scraping Data for FOU
+  temp <- c(df[200,],df[202,]) 
+  names(temp) <- c("University", "Location")
+  df_fou   <- as_data_frame(temp)
+  df_fou  <- separate(df_fou ,University,c("rank","College"), sep = "[.]")
+
+  #Scraping Data for Georgia Tech
+  temp <- c(df[214,],df[216,]) 
+  names(temp) <- c("University", "Location")
+  df_gtech   <- as_data_frame(temp)
+  df_gtech  <- separate(df_gtech ,University,c("rank","College"), sep = "[.]")
   
-df
-df_yale
+  #Scraping Data for UCLA
+  temp <- c(df[226,],df[228,]) 
+  names(temp) <- c("University", "Location")
+  df_ucla  <- as_data_frame(temp)
+  df_ucla <- separate(df_ucla ,University,c("rank","College"), sep = "[.]")
+  
+  #Scraping Data for Yale
+  temp <- c(df[238,],df[240,]) 
+  names(temp) <- c("University", "Location")
+  df_yale   <- as_data_frame(temp)
+  df_yale  <- separate(df_yale ,University,c("rank","College"), sep = "[.]")
+  
+ df_final <- bind_rows(df_stan,df_mit,df_pr,df_berk,df_cmu,df_corn,df_usc,df_uta,df_harv,df_calt,df_uchic,df_umd,df_ucsd,df_uma,df_purd,df_columb,df_fou,
+                        df_gtech,df_ucla,df_yale)
+  df_final
+
 
   #as_data_frame(dl_tab)
 
