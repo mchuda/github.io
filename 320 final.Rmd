@@ -97,7 +97,7 @@ Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Mode
 We can view the data by calling the read_csv command on the downloaded file.
 ```{r prep, message=FALSE}
 
-csv <- "/Users/sahanaraju/Downloads/graduate-admissions/Admission_Predict.csv"
+csv <- "./Admission_Predict.csv"
 df <- read_csv(csv)
 df
 
