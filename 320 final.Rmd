@@ -29,6 +29,64 @@ library(ggrepel)
 ```
 
 
+# Scraping
+The dataset that we use for this project is on kaggle. However, we wanted to show our ability to scrape data and thus have included and additional data set in our project. Therefore, we have included some of the best Graduate College Universities as an additional datase in order for our readers to have a better understanding of the top schools in the country for Graduate School Programs.
+
+The URL is : https://www.graduateprograms.com/masters-degrees/best-computer-science-schools
+
+```{r scrape}
+
+library("rvest")
+
+url <- "https://thebestschools.org/rankings/20-top-graduate-programs-computer-science-application-process/"
+
+
+dl_tab <- url %>% 
+  read_html() %>%
+  html_text() %>%
+  str_split("\n")
+
+  dl_tab <- dl_tab[[1]][373:622]
+
+  df <- dplyr::as_data_frame(dl_tab)
+  
+  #Scraping all of the data and putting them into separate schools
+  df_stan <- df[1:10,]
+  df_mit <- df[11:24,]
+  df_berk <- df[25:36,]
+  df_pr <- df[37:50,]
+  df_cmu <- df[51:62,]
+  df_corn <- df[63:72,]
+  df_usc <- df[73:85,]
+  df_uta <- df[86:97,]
+  df_harv <- df[98:109,]
+  df_calt <- df[110:122,]
+  df_uchic <- df[123:136,]
+  df_umd <- df[136:148,]
+  df_ucsd <- df[149:160,]
+  df_uma <- df[160:172,]
+  df_purd <- df[173:185,]
+  df_columb <- df[186:199,]
+  df_fou <- df[200:213,]
+  df_gtech <- df[214:225,]
+  df_ucla <- df[226:237,]
+  df_yale <- df[238:250,]
+
+  
+  
+  
+  df_fin <- data.frame
+
+  
+df
+df_yale
+
+  #as_data_frame(dl_tab)
+
+
+```
+
+
 # Data Curation
 
 The dataset we will be using comes from a comma-separated values (CSV) file, found on https://www.kaggle.com/mohansacharya/graduate-admissions/downloads/graduate-admissions.zip/2
@@ -58,14 +116,10 @@ apply(is.na(df),2, sum)
 
 We find that our dataset has no missing values and can proceed.
 
-There are certain datasets that do have missing values, and they need to be taken care of. Some options include eliminating entries with missing values and imputing values into missing places. Check out http://uc-r.github.io/missing_values for details on how to do so. 
-
 ## Entries
 The entries for this dataframe are individuals who have applied to graduate school. Each entry, or row, corresponds to one person. 
 
 ## Attributes
-There are several types of attributes in R, as each column is made up of values of a particular class. Some of the common data types can be found at https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/
-
 The attributes (or columns) in the dataset are as follows: Serial No., GRE Score, TOEFL Score, University Rating, SOP, LOR, GPA, Research, and Chance of Admit
 
 ### Serial Number
@@ -209,8 +263,6 @@ $Y = \beta{_0} + \beta{_1}X \\$
 
 Since we are interested in how chance of being admitted is affected by factors (ex: GRE score), we can do the following regression: 
 $Chance of Admit \approx \beta{_0} + \beta{_1}\times GRE Score \\$
-
-In the above graphs used in EDA Visualization, we used components for adding geom_points and geom_boxplots. However, multiple components can be added to a single plot. For example, a geom_smooth component can be layered, Additional information can be found at https://ggplot2.tidyverse.org/reference/gg-add.html (cite)
 
 ```{r simple}
 simple_reg <- tidy_data %>%
