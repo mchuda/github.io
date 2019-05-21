@@ -342,7 +342,8 @@ To look at continuous variables GRE Score and Chance of Admit, we can produce a 
 
 tidy_data %>%
   ggplot(aes(x=`GRE Score`, y=`Chance of Admit`)) +
-  geom_point()
+  geom_point() + 
+  ggtitle("Chance of Admit across GRE Scores")
 
 ```
 From the scatter plot, we can see a pattern of Chance of Admit increasing with GRE Score. With a model, we will be better able to quantify the potential relationship.
@@ -410,7 +411,8 @@ In the above graphs used in EDA Visualization, we used components for adding geo
 simple_reg <- tidy_data %>%
   ggplot(aes(x=`GRE Score`, y= `Chance of Admit`)) +
   geom_point() +
-  geom_smooth(method=lm)
+  geom_smooth(method=lm) +
+  ggtitle("Chance of Admit across GRE Scores")
 simple_reg
 
 # The linear model equation
@@ -450,7 +452,8 @@ Like in simple regression, we can build our model using geom_smooth
 tidy_data %>%
   ggplot(aes(x=`GRE Score`, y=`Chance of Admit`, color=Research)) +
     geom_point() +
-    geom_smooth(method=lm)
+    geom_smooth(method=lm) + 
+    ggtitle("Chance of Admit across GRE Score by Research Conducted")
 
 ```
 
