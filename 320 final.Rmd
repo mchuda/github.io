@@ -34,10 +34,12 @@ library(tmaptools)
 ```
 
 
-# Scraping
+# Parsing
+
+## Scraping
+
 The dataset that we use for this project is on kaggle. However, we wanted to show our ability to scrape data and thus have included and additional data set in our project. Therefore, we have included some of the best Graduate College Universities as an additional datase in order for our readers to have a better understanding of the top schools in the country for Graduate School Programs.
 
-The URL is : https://www.graduateprograms.com/masters-degrees/best-computer-science-schools
 
 ```{r scrape}
 
@@ -202,7 +204,7 @@ dl_tab <- url %>%
 ```
 
 
-# Map of the Previous Data Frame
+## Map of the Previous Data Frame
 ```{r prep, message=FALSE}
 library(leaflet)
 library(stringr)
@@ -226,7 +228,7 @@ grad_map
 
 # Data Curation
 
-The dataset we will be using comes from a comma-separated values (CSV) file, found on https://www.kaggle.com/mohansacharya/graduate-admissions/downloads/graduate-admissions.zip/2
+For the rest of our project, the dataset we will be using comes from a comma-separated values (CSV) file, found on https://www.kaggle.com/mohansacharya/graduate-admissions/downloads/graduate-admissions.zip/2
 
 We can view the data by calling the read_csv command on the downloaded file.
 ```{r prep, message=FALSE}
@@ -237,12 +239,13 @@ df
 
 ```
 
-# Parsing and Management
+# Management
 Now that we have the data, we should understand what the components are.
 
 ## Missing Values
 First things first, we need to check and make sure there are no missing values in the dataset.
 We can use the apply function, which takes a variable, margin, and function. The variable in this case would be the function is.na applied on the dataset, df. This creates a matrix filled with boolean values for each value in the dataset, whether it is marked "NA" or not. We use a margin of 2 so the function is applied by column, and the function sum adds up the number of NA values in each column.
+
 ```{r missing}
 apply(is.na(df),2, sum)
 
@@ -379,6 +382,7 @@ summary %>%
 
 
 ```
+
 # Hypothesis Testing
 Since I have mad multiple statements regarding the relationship of GRE Score and the probability of being accepted into a University, I decided to test a different relationship. I did Chance of Admit vs University Rating in order to see if there was a relationship between the rating of the university you attended and the Chance that was calculated of admission. As you can see, the p-value for this relationship is significantly low at 6.53 * 10 ^-63 which is less than .05, allowing us to reject the null hypothesis.
 
@@ -475,4 +479,6 @@ anova(gre_fit, multiple_fit)
 The pvalue calculated is 5.894e-06, which is incredibly small. Thus we can state that the second model with the GRE Score and Research interaction is a better fit for the data than the model with just GRE Score.
 
 # Sources
+https://www.graduateprograms.com/masters-degrees/best-computer-science-schools
+
 Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Models for Prediction of Graduate Admissions, IEEE International Conference on Computational Intelligence in Data Science 2019
