@@ -31,6 +31,10 @@ library(ggrepel)
 library(ggmap)
 library(tmap)
 library(tmaptools)
+library(leaflet)
+library(stringr)
+library(pracma)
+library(rvest)
 ```
 
 
@@ -38,12 +42,11 @@ library(tmaptools)
 
 ## Scraping
 
-The dataset that we use for this project is on kaggle. However, we wanted to show our ability to scrape data and thus have included and additional data set in our project. Therefore, we have included some of the best Graduate College Universities as an additional datase in order for our readers to have a better understanding of the top schools in the country for Graduate School Programs.
+The dataset that we use for this project is on kaggle. However, we wanted to show our ability to scrape data and thus have included and additional data set in our project. Therefore, we have included some of the best Graduate College Universities as an additional datase in order for our readers to have a better understanding of the top schools in the country for Graduate School Programs. This information comes to us from https://www.graduateprograms.com/masters-degrees/best-computer-science-schools
 
 
-```{r scrape}
+```{r scrape, message=FALSE, warning=FALSE}
 
-library("rvest")
 
 url <- "https://thebestschools.org/rankings/20-top-graduate-programs-computer-science-application-process/"
 
@@ -205,11 +208,7 @@ dl_tab <- url %>%
 
 
 ## Map of the Previous Data Frame
-```{r prep, message=FALSE}
-library(leaflet)
-library(stringr)
-library(pracma)
-library(dplyr)
+```{r prep_map, message=FALSE}
 
 schoolIcons <- icons(
   iconUrl = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/school_1f3eb.png",
@@ -363,7 +362,7 @@ summary
 
 ## Data Transformations
 Our data transformation consists of centering the data for the previous summary statistics that we performed on GRE vs Mean Chance of Admit. We will then break up the data by the standard deviation instead of by intervals of 5. As you can tell the standard deviations are from -3 to 3 since this was the range of the SD of the data. This then allows us to see the change in the average of the data as the standard deivation away from the mean changes.
-```{r summary}
+```{r data_trans}
 
 
 sd <- tidy_data %>% 
@@ -416,9 +415,10 @@ simple_reg
 
 # The linear model equation
 gre_fit <- lm(`Chance of Admit`~`GRE Score`, data=tidy_data)
+gre_fit
 ```
 
-According to the lm function, $\hat\beta{_0} = -2.48281\\$ and $\hat\beta{_1} = 0.01013\\$ 
+According to the lm function, $\hat\beta{_0} = -2.436084\\$ and $\hat\beta{_1} = 0.009976\\$ 
 This means that on average, an applicant's chance of admittance would increase by 0.01 for every additional point scored on the GRE.
 
 Now that we have a linear model, we must interpret how well it fits the data.
@@ -431,7 +431,7 @@ gre_fit %>%
   tidy()
 ```
 
-We find that our p value for $ \hat\beta{_1} \\$ is much lower than .05, our cutoff for significance. Thus we can state that there is a statistically significant relationship between GRE Score and Chance of Admittance.
+We find that our p value for $\hat\beta{_1}\\$ is much lower than .05, our cutoff for significance. Thus we can state that there is a statistically significant relationship between GRE Score and Chance of Admittance.
 
 ## Interaction
 We know that GRE is a factor for admittance, but what if there are more? In particular, what if a combination of multiple factors gives us a better model for the data?
@@ -465,7 +465,7 @@ multiple_fit_stats %>% knitr::kable()
 ```
 
 We can see that for Research==TRUE and FALSE, the relationships between GRE Score and Chance of Admit are not significantly different. This is because while the estimates for GREScore and GREScore:ResearchTRUE are different, the pvalue of 0.0086 is great enough that they may be equal. 
-Normally, we do not require a pvalue to be below 0.05, but the estimates for the effect of Research on GRE Score are only 0.0057 off. As a result, we need our pvalue to be lower than the difference so that we can make sure the confidence interval does not overlap.
+Normally, we do not require a pvalue to be below 0.05, but the estimates for the effect of Research on GRE Score are only 0.005 off. As a result, we need our pvalue to be lower than the difference so that we can make sure the confidence interval does not overlap. However, our pvalue for GRE Score:ResearchTRUE is 0.0059, greater than the difference.
 
 ## ANOVA
 
@@ -476,9 +476,5 @@ anova(gre_fit, multiple_fit)
 
 ```
 
-The pvalue calculated is 5.894e-06, which is incredibly small. Thus we can state that the second model with the GRE Score and Research interaction is a better fit for the data than the model with just GRE Score.
+The pvalue calculated is 3.363e-06, which is incredibly small. Thus we can state that the second model with the GRE Score and Research interaction is a better fit for the data than the model with just GRE Score.
 
-# Sources
-https://www.graduateprograms.com/masters-degrees/best-computer-science-schools
-
-Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Models for Prediction of Graduate Admissions, IEEE International Conference on Computational Intelligence in Data Science 2019
