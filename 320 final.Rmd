@@ -13,6 +13,8 @@ output:
 ## Background
 Graduate School is a goal for many students in University. However, unlike in high school, the resources and information are not as widespread, so prospective young adults have to independently do research to be informed. There are many factors in the application process, and the purpose of this project is to help gain a better understanding on what is needed for a successful higher education.
 
+Data Science provides a manner with which we are able to best figure out what aspects of the application process are the most important. While merely looking at a table can give us a general idea, various tests and visualization can help us conclude what makes an ideal applicant. With this information, we, along with other undergraduate students, can be best prepared.
+
 ## Setting up
 Prior to accessing our dataset, we need to first load the packages necessary for this study.
 ```{r setupdb, include=TRUE, comment=FALSE, warning=FALSE, message=FALSE}
@@ -225,9 +227,6 @@ grad_map
 # Data Curation
 
 The dataset we will be using comes from a comma-separated values (CSV) file, found on https://www.kaggle.com/mohansacharya/graduate-admissions/downloads/graduate-admissions.zip/2
-(need to cite properly). 
-Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Models for Prediction of Graduate Admissions, IEEE International Conference on Computational Intelligence in Data Science 2019
-^ on kaggle page
 
 We can view the data by calling the read_csv command on the downloaded file.
 ```{r prep, message=FALSE}
@@ -469,3 +468,6 @@ anova(gre_fit, multiple_fit)
 ```
 
 The pvalue calculated is 5.894e-06, which is incredibly small. Thus we can state that the second model with the GRE Score and Research interaction is a better fit for the data than the model with just GRE Score.
+
+# Sources
+Mohan S Acharya, Asfia Armaan, Aneeta S Antony : A Comparison of Regression Models for Prediction of Graduate Admissions, IEEE International Conference on Computational Intelligence in Data Science 2019
