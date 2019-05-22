@@ -496,7 +496,7 @@ anova(gre_fit, multiple_fit)
 
 The pvalue calculated is 3.363e-06, which is incredibly small. Thus we can state that the second model with the GRE Score and Research interaction is a better fit for the data than the model with just GRE Score.
 
-## Conclusion
+# Conclusion
 
 In sum, our analysis is used to show our audience the factors that go into admissions and acceptance into Graduate schools. It is used to open the eyes of the people who want to join these extremely competitve programs and provide general knowledge for all students who aspire to better themselves with education. I think that we will enable and empower students around the United States with this information by providing them with external resources as well as backing up our points with data. I hope that our project makes Graduate programs more accessible through the knowledge we provide. 
 
