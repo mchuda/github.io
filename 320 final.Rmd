@@ -223,6 +223,8 @@ This map is extremely useful in being able to visualize the data that we have cr
 
 More information on how to create maps in R, take a look at https://rstudio.github.io/leaflet/markers.html. This website will give an in dept explanation on how to create a map and integrate markers that pin point certain locations. Additioanlly, we were able to find the geolocation(longitude and latitude) of a given college through the use of geocode_OSM. To learn more about this function, take a look at this - https://www.rdocumentation.org/packages/tmap/versions/1.6-1/topics/geocode_OSM .
 
+*If you are unsure of the city the college is located in through the map, simply click on it and it will tell you!
+
 ```{r prep_map, message=FALSE}
 
 schoolIcons <- icons(
@@ -374,6 +376,22 @@ summary <- tidy_data %>%
            summarize("Mean Chance of Admit"=mean(`Chance of Admit`))
 
 summary
+```
+
+
+## Summary of Letter of Recommendation 
+
+Looking at the strength of letter of recommendation, the mean chance of admit increases by around 0.5-1.2 points when the qualitative strength for the letter of recommendation increases by one point. It is important to maintain good relationships with lecturers, professors, and people you have worked with. Make sure to make good connections with them so that they will write an insightful and well informed recommendation for you!
+```{r sop}
+
+summary <- tidy_data %>%
+           mutate("SOP_Interval" = cut(`SOP`,breaks=c(0,1,2,3,4,5))) %>% 
+           group_by(SOP_Interval) %>%
+           summarize("Mean_Chance_of_Admit"=mean(`Chance of Admit`))
+summary
+
+summary %>% ggplot(aes(x=SOP_Interval, y=Mean_Chance_of_Admit)) +
+    geom_bar(stat="identity")
 ```
 
 ## Summary of Importance of Research
