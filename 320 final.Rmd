@@ -1,9 +1,11 @@
 ---
 title: "CMSC320 Final Project"
+author: "Maya, Sahana, Akhil"
 output: 
   html_document:
     number_sections: true
     toc: true
+    
 
 
 ---
