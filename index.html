@@ -83,7 +83,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type="text/css">
 .main-container {
@@ -114,6 +116,8 @@ summary {
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -188,22 +192,13 @@ $(document).ready(function () {
 
 
 
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-
 
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">A Guide to Graduate School Admissions</h1>
-<h4 class="author">Maya Chudamani, Sahana Raju, Akhil Saini</h4>
+<h4 class="author"><em>Maya Chudamani, Sahana Raju, Akhil Saini</em></h4>
 
 </div>
 
@@ -245,8 +240,8 @@ $(document).ready(function () {
 <li><a href="#simple-regression"><span class="toc-section-number">7.1</span> Simple Regression</a></li>
 <li><a href="#interaction"><span class="toc-section-number">7.2</span> Interaction</a></li>
 <li><a href="#anova"><span class="toc-section-number">7.3</span> ANOVA</a></li>
-<li><a href="#conclusion"><span class="toc-section-number">7.4</span> Conclusion</a></li>
 </ul></li>
+<li><a href="#conclusion"><span class="toc-section-number">8</span> Conclusion</a></li>
 </ul>
 </div>
 
@@ -492,8 +487,8 @@ grad_map &lt;- leaflet(df_final) %&gt;%
   addMarkers(~lng,~lat,label=~College,icon = schoolIcons, clusterOptions = markerClusterOptions(), popup=paste(&quot;College:&quot;, df_final$College, &quot;&lt;br&gt;&quot;,
                                                                                             &quot;Location:&quot;,df_final$Location))
 grad_map</code></pre>
-<div id="htmlwidget-bd5b1b79e0b136f81b2c" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bd5b1b79e0b136f81b2c">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[37.43131385,42.3583961,40.34829285,37.8753497,40.4441619,42.4505507,34.0224149,30.284151,42.36782045,34.13710185,40.101976,38.99203005,32.87935255,42.2942142,40.4319722,40.8071772,47.6543238,33.776033,34.07088865,41.25713055],[-122.169365354983,-71.0956778766393,-74.66308325,-122.239633649188,-79.942728259225,-76.4783512955428,-118.286344073446,-97.7319559808022,-71.1266665287448,-118.125274866116,-88.2314378,-76.9461029019905,-117.231100493855,-83.710038935096,-86.923893679845,-73.9625279772072,-122.308008943203,-84.3988408600158,-118.446731966638,-72.9896696015223],{"iconUrl":{"data":"https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/school_1f3eb.png","index":0},"iconWidth":22,"iconHeight":22},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["College:  Stanford University <br> Location: Stanford, California","College:  Massachusetts Institute of Technology (MIT) <br> Location: Cambridge, Massachusetts","College:  Princeton University <br> Location: Princeton, New Jersey","College:  University of California Berkeley <br> Location: Berkeley, California","College:  Carnegie Mellon (Pittsburgh) <br> Location: Pittsburgh, Pennsylvania","College:  Cornell University <br> Location: Ithica, New York","College:   University of Southern California <br> Location: Los Angeles, California","College:  The University of Texas at Austin <br> Location: Austin, Texas","College:  Harvard University <br> Location: Cambridge, Massachusetts","College:  California Institute of Technology (Caltech) <br> Location: Pasadena, California","College:  University of Illinois at Urbana-Champaign <br> Location: Champaign County, Illinois","College:  University of Maryland College Park <br> Location: College Park, Maryland","College:  University of California San Diego <br> Location: San Diego, California","College:  University of Michigan Ann Arbor <br> Location: Ann Arbor, Michigan","College:  Purdue University <br> Location: West Lafayette, Indiana","College:  Columbia University <br> Location: New York City, New York","College:  University of Washington <br> Location: Seattle, Washington","College:  Georgia Institute of Technology (Georgia Tech) <br> Location: Atlanta, Georgia","College:  University of California Los Angeles <br> Location: Los Angeles, California","College:  Yale University <br> Location: New Haven, Connecticut"],null,{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":false},null,[" Stanford University"," Massachusetts Institute of Technology (MIT)"," Princeton University"," University of California Berkeley"," Carnegie Mellon (Pittsburgh)"," Cornell University","  University of Southern California"," The University of Texas at Austin"," Harvard University"," California Institute of Technology (Caltech)"," University of Illinois at Urbana-Champaign"," University of Maryland College Park"," University of California San Diego"," University of Michigan Ann Arbor"," Purdue University"," Columbia University"," University of Washington"," Georgia Institute of Technology (Georgia Tech)"," University of California Los Angeles"," Yale University"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[37.9,-96],4,[]],"limits":{"lat":[30.284151,47.6543238],"lng":[-122.308008943203,-71.0956778766393]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4bb45316b6224bd3c3d7" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4bb45316b6224bd3c3d7">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[37.43131385,42.3583961,40.34829285,37.8753497,40.4441619,42.4505507,34.0224149,30.284151,42.36782045,34.13710185,40.101976,38.99203005,32.87935255,42.2942142,40.4319722,40.8071772,47.6543238,33.776033,34.07088865,41.25713055],[-122.169365354983,-71.0956778766393,-74.66308325,-122.239633649188,-79.942728259225,-76.4783512955428,-118.286344073446,-97.7319559808022,-71.1266665287448,-118.125274866116,-88.2314378,-76.9461029019905,-117.231100493855,-83.710038935096,-86.923893679845,-73.9625279772072,-122.308008943203,-84.3988408600158,-118.446731966638,-72.9896696015223],{"iconUrl":{"data":"https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/google/146/school_1f3eb.png","index":0},"iconWidth":22,"iconHeight":22},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["College:  Stanford University <br> Location: Stanford, California","College:  Massachusetts Institute of Technology (MIT) <br> Location: Cambridge, Massachusetts","College:  Princeton University <br> Location: Princeton, New Jersey","College:  University of California Berkeley <br> Location: Berkeley, California","College:  Carnegie Mellon (Pittsburgh) <br> Location: Pittsburgh, Pennsylvania","College:  Cornell University <br> Location: Ithica, New York","College:   University of Southern California <br> Location: Los Angeles, California","College:  The University of Texas at Austin <br> Location: Austin, Texas","College:  Harvard University <br> Location: Cambridge, Massachusetts","College:  California Institute of Technology (Caltech) <br> Location: Pasadena, California","College:  University of Illinois at Urbana-Champaign <br> Location: Champaign County, Illinois","College:  University of Maryland College Park <br> Location: College Park, Maryland","College:  University of California San Diego <br> Location: San Diego, California","College:  University of Michigan Ann Arbor <br> Location: Ann Arbor, Michigan","College:  Purdue University <br> Location: West Lafayette, Indiana","College:  Columbia University <br> Location: New York City, New York","College:  University of Washington <br> Location: Seattle, Washington","College:  Georgia Institute of Technology (Georgia Tech) <br> Location: Atlanta, Georgia","College:  University of California Los Angeles <br> Location: Los Angeles, California","College:  Yale University <br> Location: New Haven, Connecticut"],null,{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":false},null,[" Stanford University"," Massachusetts Institute of Technology (MIT)"," Princeton University"," University of California Berkeley"," Carnegie Mellon (Pittsburgh)"," Cornell University","  University of Southern California"," The University of Texas at Austin"," Harvard University"," California Institute of Technology (Caltech)"," University of Illinois at Urbana-Champaign"," University of Maryland College Park"," University of California San Diego"," University of Michigan Ann Arbor"," Purdue University"," Columbia University"," University of Washington"," Georgia Institute of Technology (Georgia Tech)"," University of California Los Angeles"," Yale University"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[37.9,-96],4,[]],"limits":{"lat":[30.284151,47.6543238],"lng":[-122.308008943203,-71.0956778766393]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="data-curation" class="section level1">
@@ -876,10 +871,10 @@ multiple_fit_stats %&gt;% knitr::kable()</code></pre>
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>The pvalue calculated is 3.363e-06, which is incredibly small. Thus we can state that the second model with the GRE Score and Research interaction is a better fit for the data than the model with just GRE Score.</p>
 </div>
-<div id="conclusion" class="section level2">
-<h2><span class="header-section-number">7.4</span> Conclusion</h2>
-<p>In sum, our analysis is used to show our audience the factors that go into admissions and acceptance into Graduate schools. It is used to open the eyes of the people who want to join these extremely competitve programs and provide general knowledge for all students who aspire to better themselves with education. I think that we will enable and empower students around the United States with this information by providing them with external resources as well as backing up our points with data. I hope that our project makes Graduate programs more accessible through the knowledge we provide.</p>
 </div>
+<div id="conclusion" class="section level1">
+<h1><span class="header-section-number">8</span> Conclusion</h1>
+<p>In sum, our analysis is used to show our audience the factors that go into admissions and acceptance into Graduate schools. It is used to open the eyes of the people who want to join these extremely competitve programs and provide general knowledge for all students who aspire to better themselves with education. I think that we will enable and empower students around the United States with this information by providing them with external resources as well as backing up our points with data. I hope that our project makes Graduate programs more accessible through the knowledge we provide.</p>
 </div>
 
 
