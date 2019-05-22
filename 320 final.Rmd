@@ -44,7 +44,7 @@ library(rvest)
 
 ## Scraping
 
-The dataset that we use for this project is on kaggle. However, we wanted to show our ability to scrape data and thus have included and additional data set in our project. Therefore, we have included some of the best Graduate College Universities as an additional datase in order for our readers to have a better understanding of the top schools in the country for Graduate School Programs. This information comes to us from https://www.graduateprograms.com/masters-degrees/best-computer-science-schools
+The dataset that we use for this project is on kaggle. However, we wanted to show our ability to scrape data and thus have included an additional data set in our project. Therefore, we have included some of the best Graduate College Universities as an additional datase in order for our readers to have a better understanding of the top schools in the country for Graduate School Programs. This information comes to us from https://www.graduateprograms.com/masters-degrees/best-computer-science-schools
 
 
 ```{r scrape, message=FALSE, warning=FALSE}
@@ -210,6 +210,9 @@ dl_tab <- url %>%
 
 
 ## Map of the Previous Data Frame
+This map is extremely useful in being able to visualize the data that we have created and to show the locations of the top 20 graduate programs in the USA. As you scroll in , the colleges are identified by the emojis of universities. We used the leaflet library in order to create this map.
+
+More information on how to create maps in R, take a look at https://rstudio.github.io/leaflet/markers.html. This website will give an in dept explanation on how to create a map and integrate markers that pin point certain locations. Additioanlly, we were able to find the geolocation(longitude and latitude) of a given college through the use of geocode_OSM. To learn more about this function, take a look at this - https://www.rdocumentation.org/packages/tmap/versions/1.6-1/topics/geocode_OSM .
 ```{r prep_map, message=FALSE}
 
 schoolIcons <- icons(
